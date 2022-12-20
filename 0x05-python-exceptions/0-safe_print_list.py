@@ -9,5 +9,5 @@ def safe_print_list(my_list=[], x=0):
                   valid_num += 1
         except (IndexError, ValueError, TypeError):
                   break
-    print("")
+                  print("")
     return (valid_num)
