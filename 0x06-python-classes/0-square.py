@@ -3,4 +3,4 @@
 
 class Square:
      """This class was purposefully left blank."""
-pass
+     pass
