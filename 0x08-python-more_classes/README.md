@@ -1,17 +1,6 @@
 0x08. Python - More Classes and Objects
-Object Oriented Programming (Read everything until the paragraph “Inheritance” (excluded))
 
-Object-Oriented Programming (Please be careful: in most of the following paragraphs, the author shows the way you should not use or write a class, in order to help you better understand some concepts and how everything works in Python 3. Make sure you read only the following paragraphs: “General Introduction,” “First-class Everything,” “A Minimal Class in Python,” “Attributes,” “Methods,” “The init Method,” “Data Abstraction, Data Encapsulation, and Information Hiding,” “str- and repr-Methods,” “Public- Protected- and Private Attributes,” & “Destructor”)
-
-Class and Instance Attributes
-
-classmethods and staticmethods
-
-Properties vs. Getters and Setters (Mainly the last part “Public instead of Private Attributes”)
-
-str vs repr
-
-Learning Objectives
+Object Oriented Programming 
 
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
 
