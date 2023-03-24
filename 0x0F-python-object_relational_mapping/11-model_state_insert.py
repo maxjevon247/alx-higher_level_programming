@@ -6,20 +6,26 @@ import MySQLdb
 from sys import argv
 from sqlalchemy import (create_engine)
 from model_state import Base, State
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import update
 
 
-if __name__ == "__main__":
-    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.format
-                           (argv[1], argv[2], argv[3]), pool_pre_ping=True)
-    Base.metadata.create_all(engine)
+if __name__ == '__main__':
+    username = sys.argv[1]
+    password = sys.argv[2]
+    db_name = sys.argv[3]
+    host = 'localhost'
+    port = '3306'
 
-    session = Session(engine)
-    new = State(name="Louisiana")
-    session.add(new)
-    session.commit()
-    for state in session.query(State).filter_by(name="Louisiana")\
-                                     .order_by(State.id).all():
-        print("{}".format(state.id))
-    session.close()
+    engine = create_engine('mysql+mysqldb://{}:{}@{}:{}/{}'.format(
+                           username, password, host, port, db_name),
+                           pool_pre_ping=True)
+    Session = sessionmaker(bind=engine)
+    local_session = Session()
+    new_state = State(name='Louisiana')
+    local_session.add(new_state)
+    local_session.commit()
+
+    print(new_state.id)
+    local_session.close()
+    engine.dispose()
