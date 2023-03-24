@@ -5,22 +5,31 @@ lists all cities of that state, using the database hbtn_0e_4_usa
 """
 import MySQLdb
 from sys import argv
+import sys
 
-if __name__ == "__main__":
-    db = MySQLdb.connect(host="localhost", port=3306,
-            user=argv[1], passwd=argv[2], db=argv[3])
-    cur =db.cursor()
-    sql = "SELECT cities.name FROM cities JOIN states ON\
-            cities.state.id = states.id WHERE states.name=%s\
-            ORDER BY cities.id"
-    num_rows = cur.execute(sql, (argv[4],))
-    rows = cur.fetchall()
-    result = []
-    i = 0
-    for row in rows:
-        result.append(rows[i][0])
-        i += 1
-    joined = ", ".join(result)
-    print(joined)
+
+def list_by_state():
+    '''lists all cities of a state passed as argument to the script'''
+    username = sys.argv[1]
+    password = sys.argv[2]
+    db_name = sys.argv[3]
+    state_name = sys.argv[4]
+    host = 'localhost'
+    port = 3306
+
+    db = MySQLdb.connect(host=host, user=username, passwd=password,
+                         db=db_name, port=port)
+    cur = db.cursor()
+    cur.execute('SELECT c.name FROM cities c INNER JOIN states s ' +
+                'ON s.id = c.state_id WHERE ' +
+                'BINARY s.name = %s ' +
+                'ORDER BY c.id ASC;', [state_name])
+    result = cur.fetchall()
     cur.close()
     db.close()
+
+    print(', '.join(map(lambda x: x[0], result)))
+
+
+if __name__ == '__main__':
+    list_by_state()
