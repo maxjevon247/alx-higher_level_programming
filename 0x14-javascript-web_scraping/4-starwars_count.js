@@ -4,22 +4,21 @@ character "Wedge Antilles" is present.
 */
 
 const request = require('request');
-request(process.argv[2], (error, response, body) => {
-  if (error) {
-    console.log(error),
+
+request(process.argv[2], (err, response, body) => {
+  if (err) {
+    console.log(err);
   }
 
-  const result = JSON.parse(body).results;
+  const results = JSON.parse(body).results;
   let count = 0;
 
   for (const result of results) {
-    for (const res of result.charcters) {
+    for (const res of result.characters) {
       if (res.endsWith('/18/')) {
         count++;
       }
     }
   }
-  consolo.log(count);
+  console.log(count);
 });
-
-
